@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <a href="scratch.html">Scratch Home</a> | <a href="index.html">Home</a> | <a href="app.html">WebApp</a>
+    <br><br>
+  <title>Tennis Player Guesser</title>
+  <link rel="stylesheet" href="css/scratch.css">
+</head>
+<body class="app">
+  <h1>🎾 Guess the Tennis Player!</h1>
+  <p>Guess the mystery player in 6 tries. Feedback will show how close your guess is by attribute.</p>
+  <input type="text" id="guessInput" placeholder="Enter player name">
+  <button onclick="makeGuess()">Guess</button>
+  <div class="guess-box" id="guesses"></div>
+  <div class="feedback" id="feedback"></div>
+  <script>
+    const players = [
+      { name: "Roger Federer", country: "Switzerland", handed: "Right", rank: 1 },
+      { name: "Rafael Nadal", country: "Spain", handed: "Left", rank: 1 },
+      { name: "Novak Djokovic", country: "Serbia", handed: "Right", rank: 1 },
+      { name: "Carlos Alcaraz", country: "Spain", handed: "Right", rank: 1 },
+      { name: "Andy Murray", country: "UK", handed: "Right", rank: 1 },
+      { name: "Stan Wawrinka", country: "Switzerland", handed: "Right", rank: 3 },
+      { name: "Dominic Thiem", country: "Austria", handed: "Right", rank: 3 },
+      { name: "Nick Kyrgios", country: "Australia", handed: "Right", rank: 13 },
+      { name: "Alexander Zverev", country: "Germany", handed: "Right", rank: 2 },
+      { name: "Jannik Sinner", country: "Italy", handed: "Right", rank: 1 }
+    ];
+
+    const mystery = players[Math.floor(Math.random() * players.length)];
+    let guesses = 0;
+    const maxGuesses = 6;
+
+    function makeGuess() {
+      const input = document.getElementById("guessInput").value.trim();
+      const guess = players.find(p => p.name.toLowerCase() === input.toLowerCase());
+
+      if (!guess) {
+        document.getElementById("feedback").innerHTML = "<span class='miss'>Player not found in database.</span>";
+        return;
+      }
+
+      guesses++;
+      const clues = [];
+
+      function compare(attr, label) {
+        if (guess[attr] === mystery[attr]) {
+          return `<span class='match'>${label}: ✅ Match</span>`;
+        } else if (attr === "rank" && Math.abs(guess[attr] - mystery[attr]) <= 2) {
+          return `<span class='close'>${label}: ↝ Close</span>`;
+        } else if (attr === "country" && guess[attr] !== mystery[attr]) {
+          return `<span class='miss'>${label}: ❌ Different</span>`;
+        } else {
+          return `<span class='miss'>${label}: ❌ Different</span>`;
+        }
+      }
+
+      clues.push(compare("country", "Country"));
+      clues.push(compare("handed", "Handedness"));
+      clues.push(compare("rank", "Career High Rank"));
+
+      const guessBox = document.getElementById("guesses");
+      const guessEntry = document.createElement("div");
+      guessEntry.innerHTML = `<strong>${guess.name}</strong><br>${clues.join("<br>")}`;
+      guessBox.appendChild(guessEntry);
+
+      if (guess.name === mystery.name) {
+        document.getElementById("feedback").innerHTML = `<h2>🎉 You guessed it in ${guesses} tries! It was ${mystery.name}.</h2>`;
+        disableInput();
+      } else if (guesses >= maxGuesses) {
+        document.getElementById("feedback").innerHTML = `<h2>😢 Out of guesses! The mystery player was ${mystery.name}.</h2>`;
+        disableInput();
+      } else {
+        document.getElementById("feedback").innerHTML = `<p>Guesses left: ${maxGuesses - guesses}</p>`;
+      }
+
+      document.getElementById("guessInput").value = "";
+    }
+
+    function disableInput() {
+      document.getElementById("guessInput").disabled = true;
+    }
+  </script>
+</body>
+</html>

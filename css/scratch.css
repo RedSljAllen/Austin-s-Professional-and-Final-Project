@@ -1,0 +1,73 @@
+.body {
+        font-family: Arial, Arial, Helvetica, sans-serif;
+        font-size: 15px;
+        color: #070707;
+        background-color: rgb(94, 94, 245);
+}
+
+    .app { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+    input, button { padding: 10px; margin: 5px 0; width: 100%; }
+    .guess-box { margin-top: 20px; }
+    .feedback { margin-top: 10px; border-top: 1px solid #ccc; padding-top: 10px; }
+    .match { color: green; font-weight: bold; }
+    .close { color: orange; }
+    .miss { color: red; }
+
+.right {
+    text-align: right;
+}
+
+.main {
+    top: 114px;
+    left: 10px;
+    right: 114px;
+    bottom: 39px;
+    position: absolute;
+}  
+
+.subheader {
+    float: right
+}
+
+.header {
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    height: 100px;
+    z-index: 2;
+    border-bottom: solid 1px #555555;
+}
+
+.footer {
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+    height: 25px;
+    font-size: 12px;
+    color: #080808;
+    text-align: center;
+    padding-top: 15px;
+    position: fixed;
+}
+
+.right-menu {
+    top: 114px;
+    right: 10px;
+    bottom: 39px;
+    position: absolute;
+}
+
+.right-bottom {
+    top: 450px;
+    right: 10px;
+    position: absolute;
+}
+
+.sub {
+    font-size: 16px;
+}
+
+.special {
+    font: 22px Arial, sans-serif;
+    color: #ffffff;
+}
